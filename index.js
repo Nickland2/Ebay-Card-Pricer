@@ -1,18 +1,12 @@
-const express = require("express");
 const axios = require("axios");
-const cors = require("cors");
 
-const app = express();
-app.use(cors());
-const PORT = process.env.PORT || 3000;
+module.exports = async (req, res) => {
+  const { query } = req.query;
+  if (!query) {
+    return res.status(400).json({ error: "Query parameter required" });
+  }
 
-const EBAY_APP_ID = "YOUR_EBAY_APP_ID"; // Replace with your eBay App ID
-
-app.get("/search", async (req, res) => {
   try {
-    const { query } = req.query;
-    if (!query) return res.status(400).json({ error: "Query parameter required" });
-
     const ebayResponse = await axios.get(
       `https://api.ebay.com/buy/browse/v1/item_summary/search?q=${encodeURIComponent(query)}&limit=5`,
       {
@@ -22,11 +16,8 @@ app.get("/search", async (req, res) => {
         }
       }
     );
-
-    res.json(ebayResponse.data);
+    res.status(200).json(ebayResponse.data);
   } catch (error) {
     res.status(500).json({ error: "Error fetching data", details: error.message });
   }
-});
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+};
