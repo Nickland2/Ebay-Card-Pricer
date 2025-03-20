@@ -1,0 +1,14 @@
+{
+  "name": "ebay-card-pricer",
+  "version": "1.0.0",
+  "description": "Fetch and display recent eBay sales for sports cards",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.4.0",
+    "cors": "^2.8.5"
+  }
+}
